@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="out/script.js" type="module"></script>
+</head>
+<body>
+    <div class="info-screen">
+        <h1>Dungeon Layout Generator</h1>
+        <form id="form">
+            <div class="input-container">
+                <label for="rows">Rows: </label>
+                <img src="info.svg" alt="info">
+                <input type="number" name="rows" id="rows" value="9">
+                <div class="info">The amount of rows for the whole grid.</div>
+            </div>
+            <div class="input-container">
+                <label for="columns">Columns: </label>
+                <img src="info.svg" alt="info">
+                <input type="number" name="columns" id="columns" value="9">
+                <div class="info">The amount of columns for the whole grid.</div>
+            </div>
+            <div class="input-container">
+                <label for="finalrooms">Final Rooms: </label>
+                <img src="info.svg" alt="info">
+                <input type="number" name="finalrooms" id="finalrooms" value="4">
+                <div class="info">Specify the amount of Rooms with only one adjacent room.</div>
+            </div>
+            <div class="heads-up" id="heads-up">
+                <p>Cells: <span id="calculatedcells">81</span></p>
+                <p>Minimum Rooms: <span id="minimumrooms">10</span></p>
+                <p>Maximum Rooms: <span id="maximumrooms">20</span></p>
+            </div>
+            <button id="generateBtn" type="submit">Generate</button>
+        </form>
+        <div style="margin-top: auto; opacity: 0.7;">If the layout doesn't appear almost immediately, it's likely that the inputs were not valid or feasible.</div>
+    </div>
+    <div class="layout" id="layout">
+        
+    </div>
+</body>
+</html>
