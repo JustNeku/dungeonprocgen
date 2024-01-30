@@ -65,27 +65,30 @@ const initialize = () => {
     designatedRooms = randomIntFromInterval(minmax[0], minmax[1]) - lastRooms;
     roomLayout = [];
     let start = createStartingPoint();
-    generateBranches(start);
     while (roomLayout.length < designatedRooms) {
         generateBranches(roomLayout[Math.floor(Math.random() * roomLayout.length)]);
     }
     setLastRooms();
+    if (designatedRooms + lastRooms > roomLayout.length)
+        initialize();
     placeRooms();
 };
 const generateBranches = (room) => {
     getAllRoomNeighborCoords(room.coords)
         .filter((n) => isInLayoutGrid(n) && !isOccupied(n))
         .forEach(n => {
-        createBranch(room, n);
+        createBranch(n);
     });
 };
-const createBranch = (parent, coords) => {
+const createBranch = (coords) => {
     while (1) {
         if (roomLayout.length >= designatedRooms)
             return;
         if (Math.random()
             > (chance + (1 - chance) / 2)
                 * (1 / getAllRoomNeighborCoords(coords).filter(n => isOccupied(n)).length))
+            return;
+        if (getAllRoomNeighborCoords(coords).filter(n => isOccupied(n)).length > 1)
             return;
         let branchRoom = {
             coords: coords,
@@ -145,8 +148,8 @@ const setLastRooms = () => {
             }
         }
     }
-    lastRooms = candidates.length < lastRooms ? candidates.length : lastRooms;
-    for (let i = 0; i < lastRooms; i++) {
+    let roomsToGenerate = candidates.length < lastRooms ? candidates.length : lastRooms;
+    for (let i = 0; i < roomsToGenerate; i++) {
         let index = Math.floor(Math.random() * candidates.length);
         setRoomLayout({
             coords: candidates[index],
